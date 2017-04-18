@@ -17,7 +17,7 @@ function(add_objc_executable target_name source_file)
   target_link_libraries(${target_name} "-framework Cocoa")
 
   ament_target_dependencies(${target_name}
-    "rcl${target_suffix}"
+    "rcl"
     "rclobjc"
     "std_msgs"
     "example_interfaces")
@@ -26,19 +26,10 @@ function(add_objc_executable target_name source_file)
     DESTINATION bin)
 endfunction()
 
-macro(targets)
-  if(NOT target_suffix STREQUAL "")
-    get_rcl_information("${rmw_implementation}" "rcl${target_suffix}")
-  endif()
-
-  add_objc_executable(ROSTalker${target_suffix} src/ROSTalker.m)
-  add_objc_executable(ROSListener${target_suffix} src/ROSListener.m)
-  add_objc_executable(ROSAddTwoIntsService${target_suffix} src/ROSAddTwoIntsService.m)
-  add_objc_executable(ROSAddTwoIntsClientAsync${target_suffix} src/ROSAddTwoIntsClientAsync.m)
-
-endmacro()
-
-call_for_each_rmw_implementation(targets GENERATE_DEFAULT)
+add_objc_executable(ROSTalker src/ROSTalker.m)
+add_objc_executable(ROSListener src/ROSListener.m)
+add_objc_executable(ROSAddTwoIntsService src/ROSAddTwoIntsService.m)
+add_objc_executable(ROSAddTwoIntsClientAsync src/ROSAddTwoIntsClientAsync.m)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
