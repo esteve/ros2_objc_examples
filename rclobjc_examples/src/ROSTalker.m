@@ -15,17 +15,17 @@
 
 #import <Foundation/Foundation.h>
 
-#import <rclobjc/ROSRCLObjC.h>
 #import <ROS_std_msgs/msg/String.h>
+#import <rclobjc/ROSRCLObjC.h>
 
-int main()
-{
+int main() {
   [ROSRCLObjC rclInit];
-  ROSNode * node = [ROSRCLObjC createNode:@"talker"];
+  ROSNode *node = [ROSRCLObjC createNode:@"talker"];
 
-  ROSPublisher<ROS_std_msgs_msg_String *> * publisher = [node createPublisher:[ROS_std_msgs_msg_String class] : @"chatter"];
+  ROSPublisher<ROS_std_msgs_msg_String *> *publisher =
+      [node createPublisher:[ROS_std_msgs_msg_String class]:@"chatter"];
 
-  ROS_std_msgs_msg_String * msg = [[ROS_std_msgs_msg_String alloc] init];
+  ROS_std_msgs_msg_String *msg = [[ROS_std_msgs_msg_String alloc] init];
   int i = 1;
 
   while ([ROSRCLObjC ok]) {

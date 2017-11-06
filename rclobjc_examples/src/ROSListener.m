@@ -15,13 +15,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import <rclobjc/ROSRCLObjC.h>
 #import <ROS_std_msgs/msg/String.h>
+#import <rclobjc/ROSRCLObjC.h>
 
-int main()
-{
+int main() {
   [ROSRCLObjC rclInit];
-  ROSNode * node = [ROSRCLObjC createNode:@"listener"];
+  ROSNode *node = [ROSRCLObjC createNode:@"listener"];
 
   ROSSubscription<ROS_std_msgs_msg_String *> * sub = [node createSubscriptionWithCallback
     :[ROS_std_msgs_msg_String class]

@@ -15,30 +15,28 @@
 
 #import <Foundation/Foundation.h>
 
-#import <rclobjc/ROSRCLObjC.h>
 #import <ROS_example_interfaces/srv/AddTwoInts.h>
+#import <rclobjc/ROSRCLObjC.h>
 
-int main()
-{
+int main() {
   [ROSRCLObjC rclInit];
-  ROSNode * node = [ROSRCLObjC createNode:@"add_two_ints_client"];
+  ROSNode *node = [ROSRCLObjC createNode:@"add_two_ints_client"];
 
-  ROSClient<ROS_example_interfaces_srv_AddTwoInts *> * client = [node createClient
-    :[ROS_example_interfaces_srv_AddTwoInts class]
-    :@"add_two_ints"
-  ];
+  ROSClient<ROS_example_interfaces_srv_AddTwoInts *> *client =
+      [node createClient:[ROS_example_interfaces_srv_AddTwoInts class]:
+                             @"add_two_ints"];
 
-  ROS_example_interfaces_srv_AddTwoInts_Request * request = [[ROS_example_interfaces_srv_AddTwoInts_Request alloc] init];
+  ROS_example_interfaces_srv_AddTwoInts_Request *request =
+      [[ROS_example_interfaces_srv_AddTwoInts_Request alloc] init];
   request.a = 5;
   request.b = 8;
 
-  [client sendRequest
-    :request
-    :^(ROS_example_interfaces_srv_AddTwoInts_Response *response) {
-      NSLog(@"Incoming response\n");
-      NSLog(@"sum: %lld\n", [response sum]);
-    }
-  ];
+  [client
+      sendRequest:
+          request:^(ROS_example_interfaces_srv_AddTwoInts_Response *response) {
+            NSLog(@"Incoming response\n");
+            NSLog(@"sum: %lld\n", [response sum]);
+          }];
 
   while ([ROSRCLObjC ok]) {
     [ROSRCLObjC spinOnce:node];

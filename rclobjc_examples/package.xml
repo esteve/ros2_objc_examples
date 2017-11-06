@@ -12,17 +12,12 @@
   <buildtool_depend>rosidl_default_generators</buildtool_depend>
 
   <build_depend>example_interfaces</build_depend>
-  <build_depend>rcl</build_depend>
   <build_depend>rclobjc</build_depend>
-  <build_depend>rmw_implementation</build_depend>
-  <build_depend>rmw_implementation_cmake</build_depend>
+  <build_depend>rclobjc_common</build_depend>
   <build_depend>std_msgs</build_depend>
 
   <exec_depend>example_interfaces</exec_depend>
-  <exec_depend>rcl</exec_depend>
   <exec_depend>rclobjc</exec_depend>
-  <exec_depend>rmw_implementation</exec_depend>
-  <exec_depend>rosidl_default_runtime</exec_depend>
   <exec_depend>std_msgs</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>

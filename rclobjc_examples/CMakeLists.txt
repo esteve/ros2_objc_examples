@@ -3,33 +3,41 @@ cmake_minimum_required(VERSION 3.5)
 project(rclobjc_examples C CXX)
 
 find_package(ament_cmake REQUIRED)
-find_package(example_interfaces REQUIRED)
-find_package(rcl REQUIRED)
-find_package(rmw REQUIRED)
-find_package(rmw_implementation_cmake REQUIRED)
-find_package(std_msgs REQUIRED)
+find_package(rclobjc_common REQUIRED)
 find_package(rclobjc REQUIRED)
-
-function(add_objc_executable target_name source_file)
-  add_executable(${target_name} ${source_file})
-
-  set_target_properties(${target_name} PROPERTIES LINKER_LANGUAGE CXX)
-  target_link_libraries(${target_name} "-framework Cocoa")
-
-  ament_target_dependencies(${target_name}
-    "rcl"
-    "rclobjc"
-    "std_msgs"
-    "example_interfaces")
-
-  install(TARGETS ${target_name}
-    DESTINATION bin)
-endfunction()
+find_package(example_interfaces REQUIRED)
+find_package(std_msgs REQUIRED)
+include(UseObjectiveC)
 
 add_objc_executable(ROSTalker src/ROSTalker.m)
+ament_target_dependencies(ROSTalker
+  "rclobjc"
+  "std_msgs")
+
 add_objc_executable(ROSListener src/ROSListener.m)
+ament_target_dependencies(ROSListener
+  "rclobjc"
+  "std_msgs")
+
 add_objc_executable(ROSAddTwoIntsService src/ROSAddTwoIntsService.m)
+ament_target_dependencies(ROSAddTwoIntsService
+  "rclobjc"
+  "std_msgs"
+  "example_interfaces")
+
 add_objc_executable(ROSAddTwoIntsClientAsync src/ROSAddTwoIntsClientAsync.m)
+ament_target_dependencies(ROSAddTwoIntsClientAsync
+  "rclobjc"
+  "std_msgs"
+  "example_interfaces")
+
+install(TARGETS
+  ROSTalker
+  ROSListener
+  ROSAddTwoIntsService
+  ROSAddTwoIntsClientAsync
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
