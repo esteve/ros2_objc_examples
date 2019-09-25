@@ -18,6 +18,12 @@
 #import <ROS_example_interfaces/srv/AddTwoInts.h>
 #import <rclobjc/ROSRCLObjC.h>
 
+void MyCallback(ROS_example_interfaces_srv_AddTwoInts_Response *response)
+{
+  NSLog(@"Incoming response\n");
+  NSLog(@"sum: %lld\n", [response sum]);
+}
+
 int main() {
   [ROSRCLObjC rclInit];
   ROSNode *node = [ROSRCLObjC createNode:@"add_two_ints_client"];
@@ -31,12 +37,7 @@ int main() {
   request.a = 5;
   request.b = 8;
 
-  [client
-      sendRequest:
-          request:^(ROS_example_interfaces_srv_AddTwoInts_Response *response) {
-            NSLog(@"Incoming response\n");
-            NSLog(@"sum: %lld\n", [response sum]);
-          }];
+  [client sendRequest: request:MyCallback];
 
   while ([ROSRCLObjC ok]) {
     [ROSRCLObjC spinOnce:node];

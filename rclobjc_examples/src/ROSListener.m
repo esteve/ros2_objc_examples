@@ -18,6 +18,11 @@
 #import <ROS_std_msgs/msg/String.h>
 #import <rclobjc/ROSRCLObjC.h>
 
+void MyCallback(ROS_std_msgs_msg_String *msg)
+{
+  NSLog(@"%@\n", [msg data]);
+}
+
 int main() {
   [ROSRCLObjC rclInit];
   ROSNode *node = [ROSRCLObjC createNode:@"listener"];
@@ -25,9 +30,7 @@ int main() {
   ROSSubscription<ROS_std_msgs_msg_String *> * sub = [node createSubscriptionWithCallback
     :[ROS_std_msgs_msg_String class]
     :@"chatter"
-    :^(ROS_std_msgs_msg_String *msg) {
-      NSLog(@"%@\n", [msg data]);
-    }
+    :MyCallback
   ];
 
   while ([ROSRCLObjC ok]) {
