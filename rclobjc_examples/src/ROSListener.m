@@ -18,7 +18,8 @@
 #import <ROS_std_msgs/msg/String.h>
 #import <rclobjc/ROSRCLObjC.h>
 
-void MyCallback(ROS_std_msgs_msg_String *msg) {
+void MyCallback(ROS_std_msgs_msg_String *msg)
+{
   NSLog(@"%@\n", [msg data]);
 }
 
